@@ -38,24 +38,22 @@ The project is organized into sequential notebooks to ensure reproducibility, fo
     * Generation of the final enriched dataset (`train_extended.csv`).
 
 ### 2. Graph Neural Networks (GNN)
-* `02_GNN_Modeling_DGL.ipynb`: 
+* `Línia 1_HeteroGraphCN_Dataset.ipynb`:
+    * Molecule conformation discarding non-stable molecules.
     * Construction of **Heterogeneous Graphs** using the Deep Graph Library (DGL).
+        * Atomic bonding represented as one type of edge
+        * Atomic coupling interaction represented as another type of edge.
+    * Training loops and evaluation of node-edge interaction models.
+* `Línia 2_GraphSAGE i GraphGAT.ipynb`:
+    * Molecule conformation simplified to consider only coupled atoms as graph nodes and edges.
     * Implementation of `HeteroGraphConv`, `GraphSAGE`, and `GAT` architectures.
     * Training loops and evaluation of node-edge interaction models.
 
-### 3. Gradient Boosting & Hyperparameter Tuning
-* `03_LightGBM_Baseline.ipynb`: 
+### 3. Gradient Boosting
+* `Línia 3_LightGBM.ipynb`: 
     * Training of the initial Gradient Boosting Decision Tree (GBDT) models.
-    * Comparative analysis of MAE across different coupling types (1J, 2J, 3J).
-* `04_Optuna_Optimization.ipynb`: 
     * Automated hyperparameter tuning using **Bayesian Optimization** via Optuna.
     * Fine-tuning of learning rates, leaf sizes, and regularization to reach the final Global MAE of 0.95.
-
-### 4. Evaluation & Final Results
-* `05_Final_Evaluation.ipynb`: 
-    * Detailed comparison between GNN and LightGBM performance.
-    * Visualization of error distributions and "Predicted vs Actual" plots.
-    * Final conclusions and model serialization.
 
 ## 📊 Performance Summary
 According to the final thesis results, the **Optimized LightGBM** model outperformed the initial GNN implementations in accuracy and computational efficiency.
