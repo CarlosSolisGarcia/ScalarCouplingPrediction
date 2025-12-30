@@ -67,11 +67,6 @@ According to the final thesis results, the **Optimized LightGBM** model outperfo
 * **GNN vs. Boosting:** While GNNs are theoretically ideal for molecular topology, LightGBM with robust feature engineering proved more effective for this specific scale of J-coupling prediction. LightGBM offered better accuracy with significantly lower training times (minutes vs. hours).
 * **Feature Criticality:** Geometric features (bond angles and dihedrals) and external atomic properties (PubChem) were essential for reducing error in complex coupling types.
 
-## 📂 Repository Structure
-* `notebooks/`: Includes the full pipeline from EDA and Feature Engineering to Model Training.
-* `src/`: Core logic for geometry calculations and data extraction from PubChem.
-* `models/`: Configuration files and saved weights for the best-performing models.
-
 ---
 
 ## ✒️ Author
