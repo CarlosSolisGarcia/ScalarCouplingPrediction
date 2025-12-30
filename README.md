@@ -1,43 +1,49 @@
-#Scalar Coupling Prediction
+# Scalar Coupling Prediction with Deep Learning
 
-This repository contains the implementation and workflow for predicting scalar coupling constants (J-coupling) between pairs of atoms in organic molecules. The project is based on the Kaggle challenge organized by CHAMPS (CHemistry And Mathematics in Phase Space).
+This repository contains the official implementation of my Master's Thesis (**TFM**) for the **Master in Data Science at UOC (Universitat Oberta de Catalunya)**, completed in January 2025. 
 
-🧪 Problem Description
-Nuclear Magnetic Resonance (NMR) is a crucial technique for understanding the structure and dynamics of molecules. A key parameter is the scalar coupling constant, which measures the magnetic interaction between the nuclei of two atoms.
+The project focuses on predicting scalar coupling constants (J-coupling) in organic molecules, a key parameter in Nuclear Magnetic Resonance (NMR), using high-performance Machine Learning and Deep Learning architectures.
 
-While these values can be calculated using quantum mechanics (such as DFT), these calculations are extremely computationally expensive. The goal of this project is to develop fast and accurate Machine Learning models to predict these properties directly from the 3D structure of the molecule.
+## 🧪 Project Overview
+Predicting molecular properties traditionally requires Density Functional Theory (DFT) calculations, which are extremely resource-intensive. This project demonstrates how **Graph Neural Networks (GNN)** and **Gradient Boosting** can approximate these values with high precision in a fraction of the time, using the CHAMPS dataset.
 
-🚀 Key Features
-Exploratory Data Analysis (EDA): Visualization of molecular structures and distribution of coupling constants across different bond types.
+## 🚀 Key Features & Methodology
 
-Feature Engineering: Generation of chemical descriptors, including Euclidean distances, bond angles, atom types, and molecular geometry features.
+### 1. Data Engineering & Chemical Descriptors
+The project leverages a multi-source approach to feature engineering:
+* **External Chemical Data:** Integration of atomic properties (electronegativity, atomic radius, ionization energy) via **PubChem** API and **RDKit**.
+* **Geometric Engineering:** Calculation of Euclidean distances, bond angles (3 atoms), and dihedral angles (4 atoms) to define the spatial chemical environment.
+* **Graph Representation:** Molecules are modeled as **heterogeneous graphs**, where atoms are nodes and different types of couplings (1JHC, 2JHH, etc.) are treated as distinct edge types.
 
-Modeling: Implementation of high-performance models based on Gradient Boosting (LightGBM/XGBoost) or Neural Networks.
+### 2. Modeling & Optimization
+* **Deep Learning:** Implementation of GNNs using **DGL (Deep Graph Library)** and PyTorch. Tested architectures include `HeteroGraphConv`, `GraphSAGE`, and `GAT` (Graph Attention Networks).
+* **Gradient Boosting (LightGBM):** A highly optimized baseline using **Optuna** for automated hyperparameter tuning, which achieved the best overall accuracy-to-latency ratio.
+* **Multi-Target Strategy:** The model treats each coupling type specifically, acknowledging the unique physical nature of each bond interaction.
 
-Optimization: Hyperparameter tuning focused on minimizing the logarithmic Mean Absolute Error (MAE).
+## 🛠️ Tech Stack
+* **Core:** Python 3.10.14, PyTorch 2.2.2
+* **Graph Processing:** DGL (Deep Graph Library) 2.0.0
+* **Cheminformatics:** RDKit, Pybel (OpenBabel)
+* **Optimization:** Optuna (Bayesian Optimization)
 
-📂 Repository Structure
-notebooks/: Jupyter Notebooks containing step-by-step analysis, feature engineering, and model training.
+## 📊 Performance Summary
+According to the final thesis results, the **Optimized LightGBM** model outperformed the initial GNN implementations in accuracy and computational efficiency.
 
-src/: Python scripts for data preprocessing and utility functions.
+| Model | Global MAE | Training Time |
+| :--- | :---: | :---: |
+| GNN (HeteroGraph) | 1.42 | ~4 hours |
+| **LightGBM (Optimized)** | **0.95** | **~15 minutes** |
 
-data/: (Not included due to size) Placeholder for Kaggle datasets (train.csv, test.csv, structures.csv).
+## 💡 Thesis Conclusions
+* **GNN vs. Boosting:** While GNNs are theoretically ideal for molecular topology, LightGBM with robust feature engineering proved more effective for this specific scale of J-coupling prediction. LightGBM offered better accuracy with significantly lower training times (minutes vs. hours).
+* **Feature Criticality:** Geometric features (bond angles and dihedrals) and external atomic properties (PubChem) were essential for reducing error in complex coupling types.
 
-models/: Serialized trained models and evaluation logs.
+## 📂 Repository Structure
+* `notebooks/`: Includes the full pipeline from EDA and Feature Engineering to Model Training.
+* `src/`: Core logic for geometry calculations and data extraction from PubChem.
+* `models/`: Configuration files and saved weights for the best-performing models.
 
-🛠️ Installation & Setup
-To run this project, ensure you have Python 3.8+ installed along with the following dependencies:
+---
 
-Bash
-
-pip install pandas numpy matplotlib seaborn scikit-learn lightgbm
-Clone the repository:
-
-Bash
-
-git clone https://github.com/CarlosSolisGarcia/ScalarCouplingPrediction.git
-cd ScalarCouplingPrediction
-Dataset: Download the data from the Kaggle Predicting Molecular Properties Competition and place the CSV files in the data/ directory.
-
-📊 Evaluation Metric
-The performance is evaluated using the Group MAE, which is the average of the log of the Mean Absolute Error calculated for each coupling type (e.g., 1JHC, 2JHH, 3JHI).
+## ✒️ Author
+**Carlos Solís García** *Master's Thesis in Data Science | Universitat Oberta de Catalunya (UOC)* *January 2025*
