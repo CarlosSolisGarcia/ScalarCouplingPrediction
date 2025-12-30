@@ -26,6 +26,37 @@ The project leverages a multi-source approach to feature engineering:
 * **Cheminformatics:** RDKit, Pybel (OpenBabel)
 * **Optimization:** Optuna (Bayesian Optimization)
 
+## 📓 Notebooks Structure
+
+The project is organized into sequential notebooks to ensure reproducibility, following the data science pipeline from raw structures to optimized models:
+
+### 1. Data Cleaning & Feature Engineering
+* `01_Data_Exploration_and_Engineering.ipynb`: 
+    * Initial EDA of the CHAMPS dataset.
+    * Integration with **PubChem API** to fetch atomic properties.
+    * Implementation of geometric calculations for bond angles and dihedrals using **RDKit**.
+    * Generation of the final enriched dataset (`train_extended.csv`).
+
+### 2. Graph Neural Networks (GNN)
+* `02_GNN_Modeling_DGL.ipynb`: 
+    * Construction of **Heterogeneous Graphs** using the Deep Graph Library (DGL).
+    * Implementation of `HeteroGraphConv`, `GraphSAGE`, and `GAT` architectures.
+    * Training loops and evaluation of node-edge interaction models.
+
+### 3. Gradient Boosting & Hyperparameter Tuning
+* `03_LightGBM_Baseline.ipynb`: 
+    * Training of the initial Gradient Boosting Decision Tree (GBDT) models.
+    * Comparative analysis of MAE across different coupling types (1J, 2J, 3J).
+* `04_Optuna_Optimization.ipynb`: 
+    * Automated hyperparameter tuning using **Bayesian Optimization** via Optuna.
+    * Fine-tuning of learning rates, leaf sizes, and regularization to reach the final Global MAE of 0.95.
+
+### 4. Evaluation & Final Results
+* `05_Final_Evaluation.ipynb`: 
+    * Detailed comparison between GNN and LightGBM performance.
+    * Visualization of error distributions and "Predicted vs Actual" plots.
+    * Final conclusions and model serialization.
+
 ## 📊 Performance Summary
 According to the final thesis results, the **Optimized LightGBM** model outperformed the initial GNN implementations in accuracy and computational efficiency.
 
